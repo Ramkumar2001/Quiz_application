@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>COVID-19 Quiz</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="Instructionbox">
+      <h3 class='titleforquiz'>Welcome to the Annual COVID-19 Quiz</h3>
+      <p>You have to answer 10 questions that have only one correct option! Good Luck!</p>
+      <span id='StartQuiz'>Start Quiz</span>
+      <p>General Instructions:</p>
+      <p>1. 10 questions will be asked one after the another</p>
+      <p>2. You cannot change the answer once you click on one of the options. Think and choose wisely!</p>
+    </div>
+    <div class="QuestionAndOptions">
+      <h3>Question <span id='questionno'>1</span> of 10</h3>
+      <p id='question'>Question in text</p>
+      <div id='options'>
+        <div class='option' id='option-a'>DMS</div>
+        <div class='option' id='option-b'>SDM</div>
+        <div class='option' id='option-c'>SMD</div>
+        <br>
+        <span class="prvbtn">Previous</span> <span class="nextbtn">Next</span> <span class='finishbtn'>Finish</span>
+      </div>
+    </div>
+    <div class='scorecard'>
+      <h1>Quiz Results</h1>
+      <table>
+        <tr>
+          <td>Total Question</td>
+          <td id='totalquestions'>10</td>
+        </tr>
+        <tr>
+          <td>Attempted</td>
+          <td id='attempted'>10</td>
+        </tr>
+        <tr>
+          <td>Correct</td>
+          <td id='answeredCorrect'>8</td>
+        </tr>
+        <tr>
+          <td>Wrong</td>
+          <td id='answeredWrong'>4</td>
+        </tr>
+        <tr>
+          <td>Percentage</td>
+          <td id='percentage'>100</td>
+        </tr>
+      </table>
+
+    </div>
+  <script type="text/javascript" src='script.js'></script>
+  </body>
+</html>

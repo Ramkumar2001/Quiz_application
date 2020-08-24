@@ -1,0 +1,154 @@
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  font-size: 20px;
+  animation: bgcolor infinite 20s;
+  align-content: center;
+}
+
+.Instructionbox{
+  display: grid;
+  font-family: cursive;
+  max-width: 800px;
+  background-color: white;
+  margin:130px auto;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.titleforquiz{
+  font-size: 30px;
+  text-align: center;
+  margin: 20px;
+}
+
+#StartQuiz{
+  border: 2px solid black;
+  font-size: 40px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+
+  padding: 5px;
+
+}
+
+#StartQuiz:hover{
+  background-color: aquamarine;
+}
+
+p{
+  margin:10px 10px 10px 10px;
+}
+
+.QuestionAndOptions{
+  display: none;
+  max-width: 900px;
+  font-family: inherit;
+  background-color: white;
+  margin:130px auto;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  height: 400px;
+}
+
+.option{
+  border: 1px solid black;
+  background-color: silver;
+  padding: 10px;
+  margin: 9px;
+  cursor: pointer;
+}
+
+.option:hover{
+  background-color: gray;
+}
+
+.nextbtn{
+  display: inline;
+  border: 2px solid black;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.prvbtn{
+  display: none;
+  border: 2px solid black;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+}
+.finishbtn{
+  display:none;
+  border: 2px solid black;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  background-color: thistle;
+
+}
+.finishbtn:hover{
+  background-color: orange;
+}
+.nextbtn:hover{
+  background-color: orange;
+}
+ .prvbtn:hover{
+background-color: orange;
+ }
+
+#question{
+  height:40px;
+}
+
+.scorecard{
+  display: none;
+  max-width: 900px;
+  background-color: white;
+  margin:130px auto;
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  height: 400px;
+}
+
+table, td{
+  border: 1px solid black;
+  text-align: center;
+}
+
+@keyframes bgcolor{
+    0%{
+        background: #e74c3c;
+    }
+    20%{
+        background: #2980b9;
+    }
+    40%{
+        background: #f1c40f;
+    }
+    60%{
+        background: #8e44ad;
+    }
+    80%{
+        background: #34495e;
+    }
+    100%{
+        background: #e74c3c;
+    }
+}
+
+h1{
+  margin: 10px;
+}

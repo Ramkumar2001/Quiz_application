@@ -14,7 +14,7 @@ body{
   font-family: cursive;
   max-width: 800px;
   background-color: white;
-  margin:130px auto;
+  margin:80px auto;
   border-radius: 20px;
   padding: 30px;
 }
@@ -31,7 +31,6 @@ body{
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
-
   padding: 5px;
 
 }
@@ -49,11 +48,11 @@ p{
   max-width: 900px;
   font-family: inherit;
   background-color: white;
-  margin:130px auto;
+  margin:80px auto;
   border-radius: 20px;
   padding: 30px;
   text-align: center;
-  height: 400px;
+  height: 500px;
 }
 
 .option{
@@ -116,11 +115,11 @@ background-color: orange;
   display: none;
   max-width: 900px;
   background-color: white;
-  margin:130px auto;
+  margin:80px auto;
   border-radius: 20px;
   padding: 30px;
   text-align: center;
-  height: 400px;
+  height: 500px;
 }
 
 table, td{
@@ -151,4 +150,45 @@ table, td{
 
 h1{
   margin: 10px;
+}
+
+input{
+  width: 175px;
+  height:30px;
+  font-size: 20px;
+  font-family: cursive;
+}
+
+.scorecardbtns{
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 2px;
+  text-align: center;
+  height:500px;
+}
+
+.scorecardbtns:hover{
+  background-color: silver;
+  cursor: pointer;
+}
+
+#scorecardbtns{
+  margin-top: 20px;
+}
+
+.navcircles{
+  width:30px;
+  height:30px;
+  border-radius: 50%;
+  border: 1px solid black;
+  background-color: silver;
+  display: inline-block;
+}
+
+.navcircles:hover{
+  cursor: pointer;
+}
+
+.navigation{
+  margin-top: 40px;
 }

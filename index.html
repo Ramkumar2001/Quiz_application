@@ -8,14 +8,15 @@
   <body>
     <div class="Instructionbox">
       <h3 class='titleforquiz'>Welcome to the Annual COVID-19 Quiz</h3>
-      <p>You have to answer 10 questions that have only one correct option! Good Luck!</p>
+      <p>You have to answer 10 questions that have only one correct option! Good Luck!<br>Please enter your name and click on 'Start Quiz'</p>
+      <p>Name: <input type="text" id="username"></p>
       <span id='StartQuiz'>Start Quiz</span>
       <p>General Instructions:</p>
-      <p>1. 10 questions will be asked one after the another</p>
-      <p>2. You cannot change the answer once you click on one of the options. Think and choose wisely!</p>
+      <p>1. 10 questions will be asked one after the another<br>
+      2. You cannot change the answer once you click on one of the options. Think and choose wisely!</p>
     </div>
     <div class="QuestionAndOptions">
-      <h3>Question <span id='questionno'>1</span> of 10</h3>
+      <h3>Question <span id='questionno'></span> of 10</h3>
       <p id='question'>Question in text</p>
       <div id='options'>
         <div class='option' id='option-a'>DMS</div>
@@ -23,11 +24,27 @@
         <div class='option' id='option-c'>SMD</div>
         <br>
         <span class="prvbtn">Previous</span> <span class="nextbtn">Next</span> <span class='finishbtn'>Finish</span>
+        <div class="navigation">
+          <span class='navcircles' id='0'></span>
+          <span class='navcircles' id='1'></span>
+          <span class='navcircles' id='2'></span>
+          <span class='navcircles' id='3'></span>
+          <span class='navcircles' id='4'></span>
+          <span class='navcircles' id='5'></span>
+          <span class='navcircles' id='6'></span>
+          <span class='navcircles' id='7'></span>
+          <span class='navcircles' id='8'></span>
+          <span class='navcircles' id='9'></span>
+        </div>
       </div>
     </div>
     <div class='scorecard'>
-      <h1>Quiz Results</h1>
+      <h1 id='resultincard'>Quiz Results</h1>
       <table>
+        <tr>
+          <td>Name</td>
+          <td id='name'>B Ramkumar</td>
+        </tr>
         <tr>
           <td>Total Question</td>
           <td id='totalquestions'>10</td>
@@ -49,7 +66,10 @@
           <td id='percentage'>100</td>
         </tr>
       </table>
-
+      <div id='scorecardbtns'>
+      <span class='scorecardbtns' id='retakequiz'>Retake Quiz</span>
+      <span class='scorecardbtns' id='viewhighscore'>View High Score</span>
+    </div>
     </div>
   <script type="text/javascript" src='script.js'></script>
   </body>

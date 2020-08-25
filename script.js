@@ -81,21 +81,54 @@ var QuestionsnAns = [
   }
 ];
 
-var questionNumber = 1;
+var questionNumber = 0;
 var activateprvbtn = false;
 var startbtn = document.querySelector('#StartQuiz');
 var question = document.querySelector('#question');
 var answered = false;
+var randomQNo = [];
+var username = document.querySelector('#username');
+username.value='';
+var names = [];
+var percentages = [];
+var correctanswers = [];
+var wronganswers =[];
+var attempted = [];
+
+if(JSON.parse(localStorage.getItem('names'))!==null){
+names = JSON.parse(localStorage.getItem('names'));
+percentages = JSON.parse(localStorage.getItem('percentages'));
+correctanswers = JSON.parse(localStorage.getItem('correctanswers'));
+wronganswers = JSON.parse(localStorage.getItem('wronganswers'));
+attempted = JSON.parse(localStorage.getItem('attempted'));
+}
+
+console.log(names);
+
+while(randomQNo.length<10){
+  var r = Math.floor(Math.random()*10);
+  if(randomQNo.indexOf(r)===-1)
+  randomQNo.push(r);
+}
+console.log(randomQNo);
 
 startbtn.addEventListener('click', ()=>{
+  if(username.value==='')
+  alert('Please Enter your name!');
+  else{
+  names.push(username.value);
   document.querySelector('.Instructionbox').style.display='none';
   document.querySelector('.QuestionAndOptions').style.display='block';
-  question.textContent=QuestionsnAns[0].question;
+  document.querySelector('#questionno').textContent=questionNumber+1;
+  question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var i=0;
   options.forEach((option)=>{
-    option.textContent=QuestionsnAns[0].options[i];
+    option.textContent=QuestionsnAns[randomQNo[questionNumber]].options[i];
     i++;
   })
+  navcircles[0].style.borderWidth = 'thick';
+  navcircles[0].style.borderColor = 'blue';
+}
 });
 
 var options = document.querySelectorAll('.option');
@@ -112,23 +145,27 @@ nextbtn.addEventListener('click', DisplayNextQuestion);
 function DisplayNextQuestion(e){
   questionNumber++;
   RemoveColor();
-  if(QuestionsnAns[questionNumber-1].answered){
+  if(QuestionsnAns[randomQNo[questionNumber]].answered){
   DisplayColor();
 }
   if(questionNumber<=10){
-  document.querySelector('#questionno').textContent = questionNumber;
-  question.textContent=QuestionsnAns[questionNumber-1].question;
+    navcircles[questionNumber-1].style.borderWidth='thin';
+    navcircles[questionNumber-1].style.borderColor='black'
+    navcircles[questionNumber].style.borderWidth='thick';
+    navcircles[questionNumber].style.borderColor='blue';
+  document.querySelector('#questionno').textContent = questionNumber+1;
+  question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var k=0;
   options.forEach((option)=>{
-    option.textContent=QuestionsnAns[questionNumber-1].options[k];
+    option.textContent=QuestionsnAns[randomQNo[questionNumber]].options[k];
     k++;
   });
-  if(questionNumber>1){
+  if(questionNumber>0){
     prvbtn.style.display='inline';
   }
-  if(questionNumber==10)
+  if(questionNumber==9)
   nextbtn.style.display='none';
-  if(questionNumber==10)
+  if(questionNumber==9)
   finishbtn.style.display='inline';
   else
   finishbtn.style.display='none';
@@ -139,22 +176,26 @@ prvbtn.addEventListener('click', DisplayPreviousQuestion);
 function DisplayPreviousQuestion(e){
   questionNumber--;
   RemoveColor();
-  if(QuestionsnAns[questionNumber-1].answered){
+  if(QuestionsnAns[randomQNo[questionNumber]].answered){
   DisplayColor();
 }
-  if(questionNumber>=1){
+  if(questionNumber>=0){
+    navcircles[questionNumber+1].style.borderWidth='thin';
+    navcircles[questionNumber+1].style.borderColor='black'
+    navcircles[questionNumber].style.borderWidth='thick';
+    navcircles[questionNumber].style.borderColor='blue';
   document.querySelector('#questionno').textContent = questionNumber;
-  question.textContent=QuestionsnAns[questionNumber-1].question;
+  question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var k=0;
   options.forEach((option)=>{
-    option.textContent=QuestionsnAns[questionNumber-1].options[k];
+    option.textContent=QuestionsnAns[randomQNo[questionNumber]].options[k];
     k++;
   });
-  if(questionNumber==1)
+  if(questionNumber==0)
   prvbtn.style.display='none';
-  if(questionNumber<10)
+  if(questionNumber<9)
   nextbtn.style.display='inline';
-  if(questionNumber==10)
+  if(questionNumber==9)
   finishbtn.style.display='inline';
   else
   finishbtn.style.display='none';
@@ -165,42 +206,52 @@ var answeredCorrect = 0;
 var answeredWrong = 0;
 function EvaluateOptions(e){
 
-  if(!QuestionsnAns[questionNumber-1].answered){
-  if(e.target.id==QuestionsnAns[questionNumber-1].solution){
+  if(!QuestionsnAns[randomQNo[questionNumber]].answered){
+  if(e.target.id==QuestionsnAns[randomQNo[questionNumber]].solution){
   console.log('correct');
+  navcircles[questionNumber].style.backgroundColor='green';
   answeredCorrect++;
 }
   else{
   console.log('wrong');
   answeredWrong++;
   e.target.style.backgroundColor = 'crimson';
+  navcircles[questionNumber].style.backgroundColor='crimson'
 }
 }
-QuestionsnAns[questionNumber-1].answered = true;
+QuestionsnAns[randomQNo[questionNumber]].answered = true;
   DisplayColor();
 }
 
 var finishbtn = document.querySelector('.finishbtn');
 finishbtn.addEventListener('click',EvaluateScore);
 function EvaluateScore(){
+  document.querySelector('#name').textContent=username.value;
   document.querySelector('.scorecard').style.display = 'grid';
   document.querySelector('.QuestionAndOptions').style.display='none';
-  console.log(`answered correctly = ${answeredCorrect}`);
-  console.log(`answered wrong = ${answeredWrong}`);
-  console.log(`not attempted = ${10-(answeredWrong+answeredCorrect)}`);
   document.querySelector('#attempted').textContent = (answeredWrong + answeredCorrect);
   document.querySelector('#answeredCorrect').textContent = answeredCorrect;
   document.querySelector('#answeredWrong').textContent = answeredWrong;
   var perc = answeredCorrect*10;
   document.querySelector('#percentage').textContent = perc + '%';
+  percentages.push(perc);
+  correctanswers.push(answeredCorrect);
+  wronganswers.push(answeredWrong);
+  attempted.push((answeredCorrect+answeredWrong));
+
+  localStorage.setItem('percentages', JSON.stringify(percentages));
+  localStorage.setItem('names',JSON.stringify(names));
+  localStorage.setItem('correctanswers',JSON.stringify(correctanswers));
+  localStorage.setItem('wronganswers', JSON.stringify(wronganswers));
+  localStorage.setItem('attempted', JSON.stringify(attempted));
 }
 
 function DisplayColor(){
   var m=0;
   console.log(options);
   options.forEach((option)=>{
-    if(QuestionsnAns[questionNumber-1].answered){
-      if(m===QuestionsnAns[questionNumber-1].index){
+    if(QuestionsnAns[randomQNo[questionNumber]].answered){
+      if(m===QuestionsnAns[randomQNo[questionNumber]].index){
       option.style.backgroundColor='green';
     }
     m++;
@@ -213,4 +264,75 @@ function RemoveColor(){
   options.forEach((option)=>{
     option.style.backgroundColor='silver';
   })
+}
+
+var retakequiz = document.querySelector('#retakequiz');
+retakequiz.addEventListener('click',()=>{
+  location.reload();
+});
+
+var navcircles = document.querySelectorAll('.navcircles');
+navcircles.forEach((navcircle) => {
+  navcircle.addEventListener('click', NavigateTo);
+});
+
+function NavigateTo(e){
+  navcircles.forEach((navcircle) => {
+    navcircle.style.borderColor='black';
+    navcircle.style.borderWidth='thin';
+  });
+  e.target.style.borderWidth = 'thick';
+  e.target.style.borderColor = 'blue';
+  questionNumber=Number(e.target.id);
+  console.log(questionNumber+1);
+  RemoveColor();
+if(QuestionsnAns[randomQNo[Number(e.target.id)]].answered)
+DisplayColor();
+document.querySelector('#questionno').textContent = Number(e.target.id)+1;
+question.textContent = QuestionsnAns[randomQNo[Number(e.target.id)]].question;
+var z=0;
+options.forEach((option)=>{
+  option.textContent=QuestionsnAns[randomQNo[Number(e.target.id)]].options[z];
+  z++;
+});
+if(Number(e.target.id)==0){
+prvbtn.style.display='none';
+nextbtn.style.display='inline';
+finishbtn.style.display='none';
+}
+else if(Number(e.target.id)<9){
+nextbtn.style.display='inline';
+prvbtn.style.display='inline';
+finishbtn.style.display='none';
+}
+else if(Number(e.target.id)==9){
+finishbtn.style.display='inline';
+nextbtn.style.display='none';
+prvbtn.style.display='inline';
+}
+else
+finishbtn.style.display='none';
+}
+
+var viewhighscorebtn = document.querySelector('#viewhighscore');
+viewhighscorebtn.addEventListener('click', ViewHighScore);
+
+function ViewHighScore(){
+  var flag;
+  var score = percentages[0];
+  for(t=0;t<percentages.length;t++){
+    if(percentages[t]>score){
+      score = percentages[t];
+      flag=t;
+    }
+    t++;
+  }
+  document.querySelector('#resultincard').textContent='High Score';
+  if(names!=null){
+  document.querySelector('#name').textContent=names[flag];
+  document.querySelector('#attempted').textContent = attempted[flag];
+  document.querySelector('#answeredCorrect').textContent = correctanswers[flag];
+  document.querySelector('#answeredWrong').textContent = wronganswers[flag];
+  document.querySelector('#percentage').textContent=percentages[flag];
+}
 }

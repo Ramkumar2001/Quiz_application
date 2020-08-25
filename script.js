@@ -33,7 +33,7 @@ var QuestionsnAns = [
   },
 
   {
-    question: 'When did WHO delcare covid-19 as global emergency?',
+    question: 'When did WHO delcare COVID-19 as global emergency?',
     options: ['11 March 2020', '23 February 2020', '11 February 2020'],
     solution:'option-a',
     index: 0,
@@ -90,20 +90,26 @@ var randomQNo = [];
 var username = document.querySelector('#username');
 username.value='';
 var names = [];
-var percentages = [];
+var quizscore = [];
 var correctanswers = [];
 var wronganswers =[];
 var attempted = [];
+var texttodisplay =[];
+var timevalue =[];
 
 if(JSON.parse(localStorage.getItem('names'))!==null){
 names = JSON.parse(localStorage.getItem('names'));
-percentages = JSON.parse(localStorage.getItem('percentages'));
+quizscore = JSON.parse(localStorage.getItem('quizscore'));
 correctanswers = JSON.parse(localStorage.getItem('correctanswers'));
 wronganswers = JSON.parse(localStorage.getItem('wronganswers'));
 attempted = JSON.parse(localStorage.getItem('attempted'));
+texttodisplay = JSON.parse(localStorage.getItem('texttodisplay'));
+timevalue = JSON.parse(localStorage.getItem('timevalue'));
 }
 
 console.log(names);
+console.log(quizscore);
+console.log(timevalue);
 
 while(randomQNo.length<10){
   var r = Math.floor(Math.random()*10);
@@ -117,6 +123,7 @@ startbtn.addEventListener('click', ()=>{
   alert('Please Enter your name!');
   else{
   names.push(username.value);
+  Timer();
   document.querySelector('.Instructionbox').style.display='none';
   document.querySelector('.QuestionAndOptions').style.display='block';
   document.querySelector('#questionno').textContent=questionNumber+1;
@@ -221,29 +228,35 @@ function EvaluateOptions(e){
 }
 QuestionsnAns[randomQNo[questionNumber]].answered = true;
   DisplayColor();
+  StopWhenAllAnswered();
 }
 
 var finishbtn = document.querySelector('.finishbtn');
 finishbtn.addEventListener('click',EvaluateScore);
 function EvaluateScore(){
+  clearInterval(TIMING);
+  console.log(texttodisplay);
+  document.querySelector('#timescore').innerHTML=texttodisplay;
   document.querySelector('#name').textContent=username.value;
   document.querySelector('.scorecard').style.display = 'grid';
   document.querySelector('.QuestionAndOptions').style.display='none';
   document.querySelector('#attempted').textContent = (answeredWrong + answeredCorrect);
   document.querySelector('#answeredCorrect').textContent = answeredCorrect;
   document.querySelector('#answeredWrong').textContent = answeredWrong;
-  var perc = answeredCorrect*10;
-  document.querySelector('#percentage').textContent = perc + '%';
-  percentages.push(perc);
+  var quizscores = Math.log((answeredCorrect+1)*(200000-timevalue)/(answeredWrong+1));
+  document.querySelector('#percentage').textContent = quizscores;
+  quizscore.push(quizscores);
   correctanswers.push(answeredCorrect);
   wronganswers.push(answeredWrong);
   attempted.push((answeredCorrect+answeredWrong));
 
-  localStorage.setItem('percentages', JSON.stringify(percentages));
+  localStorage.setItem('quizscore', JSON.stringify(quizscore));
   localStorage.setItem('names',JSON.stringify(names));
   localStorage.setItem('correctanswers',JSON.stringify(correctanswers));
   localStorage.setItem('wronganswers', JSON.stringify(wronganswers));
   localStorage.setItem('attempted', JSON.stringify(attempted));
+  localStorage.setItem('texttodisplay', JSON.stringify(texttodisplay));
+  localStorage.setItem('timevalue',JSON.stringify(timevalue));
 }
 
 function DisplayColor(){
@@ -319,20 +332,80 @@ viewhighscorebtn.addEventListener('click', ViewHighScore);
 
 function ViewHighScore(){
   var flag;
-  var score = percentages[0];
-  for(t=0;t<percentages.length;t++){
-    if(percentages[t]>score){
-      score = percentages[t];
+  var score = quizscore[0];
+  for(t=0;t<quizscore.length;t++){
+    if(quizscore[t]>score){
+      score = quizscore[t];
       flag=t;
     }
     t++;
   }
   document.querySelector('#resultincard').textContent='High Score';
-  if(names!=null){
+  if(JSON.parse(localStorage.getItem(names)!=null)){
   document.querySelector('#name').textContent=names[flag];
   document.querySelector('#attempted').textContent = attempted[flag];
   document.querySelector('#answeredCorrect').textContent = correctanswers[flag];
   document.querySelector('#answeredWrong').textContent = wronganswers[flag];
-  document.querySelector('#percentage').textContent=percentages[flag];
+  document.querySelector('#percentage').textContent=quizscore[flag];
+  document.querySelector('#timescore').innerHTML=texttodisplay[flag];
 }
+}
+var milisec=0, sec=0, min=0;
+var dispsec, dispmin, dispmilisec;
+var texttodisplay, timevalue, TIMING;
+function Timer(){
+    function update(){
+        milisec+=delta();
+        if(milisec>999){
+            sec++;
+            milisec=0;
+        }
+        if(sec>59){
+            min++;
+            sec=0;
+        }
+        if(sec<10){
+            dispsec='0'+sec;
+        }
+        else
+            dispsec=sec;
+        if(milisec<10)
+            dispmilisec='00'+milisec;
+        else if(milisec<100)
+            dispmilisec='0'+milisec;
+         else
+             dispmilisec = milisec;
+        if(min<10)
+            dispmin='0'+min;
+        else dispmin=min;
+           document.querySelector("#time").innerHTML=dispmin+':'+dispsec+'.'+dispmilisec;
+        texttodisplay=dispmin+':'+dispsec+'.'+dispmilisec;
+         timevalue=min*100000+sec*1000+milisec;
+         if(texttodisplay==='01:00.000'){
+           clearInterval(TIMING);
+           EvaluateScore();
+         }
+        }
+    function delta(){
+        var now=Date.now();
+        var timePassed=now-offset;
+        offset=now;
+        return timePassed;
+    }
+
+    offset=Date.now();
+    TIMING=setInterval(update,1);
+  }
+
+function StopWhenAllAnswered(){
+  var done=true;
+  for(p=0;p<10;p++){
+    if(!QuestionsnAns[p].answered)
+    done = false;
+  }
+  if(done==true){
+    clearInterval(TIMING);
+    EvaluateScore();
+  }
+
 }

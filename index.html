@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <meta name="viewport" content="width=device-width, initial scale=1.0">
     <meta charset="utf-8">
     <title>COVID-19 Quiz</title>
     <link rel="stylesheet" href="style.css">
@@ -8,14 +9,18 @@
   <body>
     <div class="Instructionbox">
       <h3 class='titleforquiz'>Welcome to the Annual COVID-19 Quiz</h3>
-      <p>You have to answer 10 questions that have only one correct option! Good Luck!<br>Please enter your name and click on 'Start Quiz'</p>
+      <br><p>Please enter your name and click on 'Start Quiz'</p>
       <p>Name: <input type="text" id="username"></p>
       <span id='StartQuiz'>Start Quiz</span>
       <p>General Instructions:</p>
       <p>1. 10 questions will be asked one after the another<br>
-      2. You cannot change the answer once you click on one of the options. Think and choose wisely!</p>
+      2. You cannot change the answer once you click on one of the options. Think and choose wisely!<br>
+      3.Your answers are automatically submitted once you have answered all the questions.<br>
+      4. You have only 1 minute to answer all the questions.<br>
+     </p>
     </div>
     <div class="QuestionAndOptions">
+      <span id="stopwatch">TIME: <span id="time">00:00.000</span></span>
       <h3>Question <span id='questionno'></span> of 10</h3>
       <p id='question'>Question in text</p>
       <div id='options'>
@@ -25,16 +30,16 @@
         <br>
         <span class="prvbtn">Previous</span> <span class="nextbtn">Next</span> <span class='finishbtn'>Finish</span>
         <div class="navigation">
-          <span class='navcircles' id='0'></span>
-          <span class='navcircles' id='1'></span>
-          <span class='navcircles' id='2'></span>
-          <span class='navcircles' id='3'></span>
-          <span class='navcircles' id='4'></span>
-          <span class='navcircles' id='5'></span>
-          <span class='navcircles' id='6'></span>
-          <span class='navcircles' id='7'></span>
-          <span class='navcircles' id='8'></span>
-          <span class='navcircles' id='9'></span>
+          <span style="color:blue;font-size:26px;">Navigate:</span> <span class='navcircles' id='0'>1</span>
+          <span class='navcircles' id='1'>2</span>
+          <span class='navcircles' id='2'>3</span>
+          <span class='navcircles' id='3'>4</span>
+          <span class='navcircles' id='4'>5</span>
+          <span class='navcircles' id='5'>6</span>
+          <span class='navcircles' id='6'>7</span>
+          <span class='navcircles' id='7'>8</span>
+          <span class='navcircles' id='8'>9</span>
+          <span class='navcircles' id='9'>10</span>
         </div>
       </div>
     </div>
@@ -58,12 +63,16 @@
           <td id='answeredCorrect'>8</td>
         </tr>
         <tr>
+          <td>Time</td>
+          <td id='timescore'></td>
+        </tr>
+        <tr>
           <td>Wrong</td>
           <td id='answeredWrong'>4</td>
         </tr>
         <tr>
-          <td>Percentage</td>
-          <td id='percentage'>100</td>
+          <td>Score</td>
+          <td id='percentage'></td>
         </tr>
       </table>
       <div id='scorecardbtns'>

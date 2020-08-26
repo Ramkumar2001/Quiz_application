@@ -201,7 +201,7 @@ function DisplayPreviousQuestion(e){
     //navcircles[questionNumber].style.borderWidth='thick';
     navcircles[questionNumber].style.borderColor='blue';
     navcircles[questionNumber].style.boxShadow='5px 10px 8px black';
-  document.querySelector('#questionno').textContent = questionNumber;
+  document.querySelector('#questionno').textContent = questionNumber+1;
   question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var k=0;
   options.forEach((option)=>{

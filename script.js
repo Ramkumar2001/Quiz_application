@@ -96,6 +96,8 @@ var wronganswers =[];
 var attempted = [];
 var texttodisplay =[];
 var timevalue =[];
+var dates = [];
+
 
 if(JSON.parse(localStorage.getItem('names'))!==null){
 names = JSON.parse(localStorage.getItem('names'));
@@ -105,6 +107,7 @@ wronganswers = JSON.parse(localStorage.getItem('wronganswers'));
 attempted = JSON.parse(localStorage.getItem('attempted'));
 texttodisplay = JSON.parse(localStorage.getItem('texttodisplay'));
 timevalue = JSON.parse(localStorage.getItem('timevalue'));
+dates = JSON.parse(localStorage.getItem('dates'));
 }
 
 console.log(names);
@@ -243,6 +246,8 @@ finishbtn.addEventListener('click',EvaluateScore);
 function EvaluateScore(){
   clearInterval(TIMING);
   console.log(texttodisplay);
+  var date = new Date();
+  document.querySelector('#date').textContent=date;
   document.querySelector('#timescore').innerHTML=texttodisplay;
   document.querySelector('#name').textContent=username.value;
   document.querySelector('.scorecard').style.display = 'grid';
@@ -256,7 +261,7 @@ function EvaluateScore(){
   correctanswers.push(answeredCorrect);
   wronganswers.push(answeredWrong);
   attempted.push((answeredCorrect+answeredWrong));
-
+  dates.push(date);
   localStorage.setItem('quizscore', JSON.stringify(quizscore));
   localStorage.setItem('names',JSON.stringify(names));
   localStorage.setItem('correctanswers',JSON.stringify(correctanswers));
@@ -264,6 +269,7 @@ function EvaluateScore(){
   localStorage.setItem('attempted', JSON.stringify(attempted));
   localStorage.setItem('texttodisplay', JSON.stringify(texttodisplay));
   localStorage.setItem('timevalue',JSON.stringify(timevalue));
+  localStorage.setItem('dates', JSON.stringify(dates));
 }
 
 function DisplayColor(){
@@ -285,15 +291,6 @@ function RemoveColor(){
     option.style.backgroundColor='silver';
   })
 }
-
-options.forEach((option) => {
-  option.addEventListener('mouseenter', ()=>{
-    option.style.backgroundColor='#696969';
-  });
-  option.addEventListener('mouseleave', ()=>{
-    option.style.backgroundColor='silver';
-  });
-});
 
 
 

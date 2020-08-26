@@ -11,7 +11,7 @@ body{
 
 .Instructionbox{
   display: grid;
-  font-family: cursive;
+  font-family: serif;
   max-width: 800px;
   background-color: white;
   margin:80px auto;
@@ -66,7 +66,9 @@ p{
 
 .nextbtn{
   display: inline;
-  border: 2px solid black;
+  width: 30px;
+  height:15px;
+  background-color: #98FB98;
   font-size: 20px;
   text-align: center;
   border-radius: 10px;
@@ -76,7 +78,9 @@ p{
 
 .prvbtn{
   display: none;
-  border: 2px solid black;
+  width: 30px;
+  height:15px;
+  background-color: #98FB98;
   font-size: 20px;
   text-align: center;
   border-radius: 10px;
@@ -158,8 +162,10 @@ input{
 
 .scorecardbtns{
   border-radius: 10px;
-  border: 1px solid black;
-  padding: 2px;
+  width: 30px;
+  height:15px;
+  background-color: #98FB98;
+  padding: 9px;
   text-align: center;
   height:500px;
 }
@@ -188,7 +194,7 @@ input{
 }
 
 .navigation{
-  margin-top: 40px;
+  margin-top: 37px;
 }
 
 #stopwatch{

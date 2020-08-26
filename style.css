@@ -63,9 +63,6 @@ p{
   cursor: pointer;
 }
 
-.option:hover{
-  background-color: #696969;
-}
 
 .nextbtn{
   display: inline;

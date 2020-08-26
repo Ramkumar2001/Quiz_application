@@ -133,8 +133,9 @@ startbtn.addEventListener('click', ()=>{
     option.textContent=QuestionsnAns[randomQNo[questionNumber]].options[i];
     i++;
   })
-  navcircles[0].style.borderWidth = 'thick';
+  //navcircles[0].style.borderWidth = 'thick';
   navcircles[0].style.borderColor = 'blue';
+  navcircles[0].style.boxShadow = "5px 10px 8px black";
 }
 });
 
@@ -156,10 +157,13 @@ function DisplayNextQuestion(e){
   DisplayColor();
 }
   if(questionNumber<=10){
-    navcircles[questionNumber-1].style.borderWidth='thin';
-    navcircles[questionNumber-1].style.borderColor='black'
-    navcircles[questionNumber].style.borderWidth='thick';
+    //navcircles[questionNumber-1].style.borderWidth='thin';
+    navcircles[questionNumber-1].style.borderColor='black';
+    navcircles[questionNumber-1].style.boxShadow ='0px 0px 0px white';
+
+    //navcircles[questionNumber].style.borderWidth='thick';
     navcircles[questionNumber].style.borderColor='blue';
+    navcircles[questionNumber].style.boxShadow='5px 10px 8px black';
   document.querySelector('#questionno').textContent = questionNumber+1;
   question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var k=0;
@@ -187,10 +191,13 @@ function DisplayPreviousQuestion(e){
   DisplayColor();
 }
   if(questionNumber>=0){
-    navcircles[questionNumber+1].style.borderWidth='thin';
-    navcircles[questionNumber+1].style.borderColor='black'
-    navcircles[questionNumber].style.borderWidth='thick';
+    //navcircles[questionNumber+1].style.borderWidth='thin';
+    navcircles[questionNumber+1].style.borderColor='black';
+    navcircles[questionNumber+1].style.boxShadow ='0px 0px 0px white';
+
+    //navcircles[questionNumber].style.borderWidth='thick';
     navcircles[questionNumber].style.borderColor='blue';
+    navcircles[questionNumber].style.boxShadow='5px 10px 8px black';
   document.querySelector('#questionno').textContent = questionNumber;
   question.textContent=QuestionsnAns[randomQNo[questionNumber]].question;
   var k=0;
@@ -279,6 +286,17 @@ function RemoveColor(){
   })
 }
 
+options.forEach((option) => {
+  option.addEventListener('mouseenter', ()=>{
+    option.style.backgroundColor='#696969';
+  });
+  option.addEventListener('mouseleave', ()=>{
+    option.style.backgroundColor='silver';
+  });
+});
+
+
+
 var retakequiz = document.querySelector('#retakequiz');
 retakequiz.addEventListener('click',()=>{
   location.reload();
@@ -291,11 +309,14 @@ navcircles.forEach((navcircle) => {
 
 function NavigateTo(e){
   navcircles.forEach((navcircle) => {
+    //navcircle.style.borderColor='thin';
     navcircle.style.borderColor='black';
-    navcircle.style.borderWidth='thin';
+    navcircle.style.boxShadow='0px 0px 0px white';
+
   });
-  e.target.style.borderWidth = 'thick';
+  //e.target.style.borderWidth = 'thick';
   e.target.style.borderColor = 'blue';
+  e.target.style.boxShadow='5px 10px 8px black';
   questionNumber=Number(e.target.id);
   console.log(questionNumber+1);
   RemoveColor();

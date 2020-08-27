@@ -110,16 +110,16 @@ timevalue = JSON.parse(localStorage.getItem('timevalue'));
 dates = JSON.parse(localStorage.getItem('dates'));
 }
 
-console.log(names);
-console.log(quizscore);
-console.log(timevalue);
+//console.log(names);
+//console.log(quizscore);
+//console.log(timevalue);
 
 while(randomQNo.length<10){
   var r = Math.floor(Math.random()*10);
   if(randomQNo.indexOf(r)===-1)
   randomQNo.push(r);
 }
-console.log(randomQNo);
+//console.log(randomQNo);
 
 startbtn.addEventListener('click', ()=>{
   if(username.value==='')
@@ -225,12 +225,12 @@ function EvaluateOptions(e){
 
   if(!QuestionsnAns[randomQNo[questionNumber]].answered){
   if(e.target.id==QuestionsnAns[randomQNo[questionNumber]].solution){
-  console.log('correct');
+  //console.log('correct');
   navcircles[questionNumber].style.backgroundColor='green';
   answeredCorrect++;
 }
   else{
-  console.log('wrong');
+  //console.log('wrong');
   answeredWrong++;
   e.target.style.backgroundColor = 'crimson';
   navcircles[questionNumber].style.backgroundColor='crimson'
@@ -245,7 +245,7 @@ var finishbtn = document.querySelector('.finishbtn');
 finishbtn.addEventListener('click',EvaluateScore);
 function EvaluateScore(){
   clearInterval(TIMING);
-  console.log(texttodisplay);
+  //console.log(texttodisplay);
   var date = new Date();
   document.querySelector('#date').textContent=date;
   document.querySelector('#timescore').innerHTML=texttodisplay;
@@ -274,7 +274,7 @@ function EvaluateScore(){
 
 function DisplayColor(){
   var m=0;
-  console.log(options);
+  //console.log(options);
   options.forEach((option)=>{
     if(QuestionsnAns[randomQNo[questionNumber]].answered){
       if(m===QuestionsnAns[randomQNo[questionNumber]].index){
@@ -315,7 +315,7 @@ function NavigateTo(e){
   e.target.style.borderColor = 'blue';
   e.target.style.boxShadow='5px 10px 8px black';
   questionNumber=Number(e.target.id);
-  console.log(questionNumber+1);
+  //console.log(questionNumber+1);
   RemoveColor();
 if(QuestionsnAns[randomQNo[Number(e.target.id)]].answered)
 DisplayColor();
